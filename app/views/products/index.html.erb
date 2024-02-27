@@ -1,6 +1,10 @@
-<h1>Products</h1>
-<ul>
-  <% @products.each do |product| %>
-    <li><%= link_to "#{product.title} (#{product.category.name})", product_path(product) %> - <%= number_to_currency(product.price) %></li>
-  <% end %>
-</ul>
+<!-- app/views/products/index.html.erb -->
+<% @products.each do |product| %>
+  <div>
+    <h2><%= link_to product.title, product %></h2>
+    <p><%= product.description %></p>
+    <p><strong>Price:</strong> <%= number_to_currency(product.price) %></p> <!-- Use number_to_currency to format price -->
+    <p><strong>Stock Quantity:</strong> <%= product.stock_quantity %></p>
+    <p><strong>Category:</strong> <%= product.category.name %></p>
+  </div>
+<% end %>
