@@ -1,10 +1,11 @@
-require 'faker'
-
-676.times do
-  Product.create(
-    title: Faker::Commerce.product_name,
-    description: Faker::Lorem.sentence,
-    price: Faker::Commerce.price,
-    stock_quantity: Faker::Number.between(from: 1, to: 100)
-  )
-end
+ require 'csv'
+ CSV.foreach(Rails.root.join('db', 'products.csv'), headers: true) do |row|
+    category = Category.find_or_create_by(name: row['category'])
+    category.products.create(
+      title: row['title'],
+      description: row['description'],
+      price: row['price'],
+      stock_quantity: row['stock_quantity']
+    )
+  end
+  
